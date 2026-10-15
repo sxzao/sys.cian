@@ -23,7 +23,6 @@ button { cursor: pointer; }
 .app-shell { min-height: 100vh; }
 .sidebar { position: fixed; inset: 0 auto 0 0; display: flex; flex-direction: column; width: 270px; padding: 32px 20px 24px; background: #fff; border-right: 1px solid #eeede8; }
 .brand { display: flex; align-items: center; gap: 12px; margin: 0 8px 57px; color: var(--ink); text-decoration: none; }
-.brand-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 14px 14px 14px 5px; background: #e6eee3; color: var(--green); font-family: "Playfair Display", serif; font-size: 21px; font-weight: 700; letter-spacing: -2px; }
 .brand-copy strong, .brand-copy small { display: block; }
 .brand-copy strong { font-family: "Playfair Display", serif; font-size: 22px; }
 .brand-copy small { margin-top: 3px; color: #989990; font-size: 9px; font-weight: 700; letter-spacing: 1.4px; }
@@ -118,6 +117,23 @@ form input:focus, form select:focus { border-color: #94ad91; box-shadow: 0 0 0 2
 .dialog-heading h2 { margin: 0; font-family: "Playfair Display", serif; font-size: 23px; }
 .close-button { border: 0; background: transparent; color: #85867e; font-size: 25px; line-height: 1; }
 .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 19px; }
+.login-screen { display: grid; place-items: center; min-height: 100vh; padding: 24px; }
+.login-card { width: min(430px, 100%); padding: 34px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); box-shadow: 0 8px 32px rgba(43, 41, 31, .06); }
+.login-card h1 { margin-bottom: 8px; font-size: 36px; }
+.login-card .intro { margin-bottom: 24px; }
+.login-card .notice { margin-top: 18px; }
+.login-card .button { margin-top: 6px; }
+.topbar-right #user-label { color: #686a62; font-size: 13px; }
+.text-button.product-edit, .text-button.product-toggle { padding: 5px; }
+.inactive-row { opacity: .65; }
+.inactive-toggle { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; color: #85867e; font-size: 13px; }
+.inactive-toggle input { accent-color: var(--green); }
+.report-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 10px 0 26px; }
+.report-stat { display: flex; flex-direction: column; gap: 8px; padding: 17px; border: 1px solid var(--line); border-radius: 8px; background: #fcfcfa; color: var(--muted); font-size: 13px; }
+.report-stat strong { color: var(--ink); font-family: "Playfair Display", serif; font-size: 28px; }
+.report-title { margin: 0 0 12px; font-family: "Playfair Display", serif; font-size: 19px; }
+.history-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.button:disabled { cursor: not-allowed; opacity: .55; transform: none; }
 
 @media (min-width: 1500px) {
   .main-content { padding-right: 64px; padding-left: 64px; }
@@ -125,42 +141,83 @@ form input:focus, form select:focus { border-color: #94ad91; box-shadow: 0 0 0 2
   .content-card { padding: 24px 26px; }
 }
 @media (max-width: 1050px) {
-  .sidebar { width: 230px; }
-  .main-content { margin-left: 230px; padding-right: 25px; padding-left: 25px; }
-  .lower-grid { grid-template-columns: 1fr; }
+  .sidebar { position: static; width: 100%; height: auto; padding: 18px 28px 14px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .brand { margin: 0 4px 18px; }
+  .navigation { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0; }
+  .nav-item { min-height: 44px; }
+  .main-content { max-width: none; margin-left: 0; padding: 0 28px 28px; }
+  .lower-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat-card:last-child { grid-column: 1 / -1; }
+  .page-heading { padding-top: 30px; }
 }
 @media (max-width: 700px) {
-  .sidebar { position: static; width: auto; height: auto; padding: 12px 16px; border-right: 0; border-bottom: 1px solid var(--line); }
-  .brand { margin: 0; }
+  .sidebar { padding: 14px 16px 12px; }
+  .brand { margin: 0 2px 14px; }
+  .brand-copy strong { font-size: 20px; }
   .sidebar-label { display: none; }
-  .navigation { display: flex; gap: 4px; margin-top: 13px; overflow-x: auto; }
-  .nav-item { flex: 0 0 auto; min-height: 42px; padding: 0 10px; font-size: 14px; }
+  .navigation { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+  .nav-item { justify-content: flex-start; gap: 7px; min-width: 0; min-height: 44px; padding: 6px 8px; font-size: 12px; line-height: 1.2; }
   .nav-item > .icon { flex-basis: 15px; width: 15px; height: 15px; }
   .nav-count { width: 17px; height: 17px; font-size: 9px; }
-  .main-content { margin-left: 0; padding: 0 18px 22px; }
-  .topbar { height: 54px; }
+  .main-content { padding: 0 18px 22px; }
+  .topbar { min-height: 54px; height: auto; gap: 10px; padding: 9px 0; }
   .today-label { display: none; }
-  .page-heading { align-items: flex-start; padding: 24px 0 18px; }
-  h1 { font-size: 34px; }
-  .intro { max-width: 260px; font-size: 14px; line-height: 1.5; }
-  .page-heading .button { flex: 0 0 auto; min-height: 42px; padding: 0 11px; font-size: 13px; }
-  .stats-grid { gap: 8px; }
-  .stat-card { min-height: 130px; padding: 15px 12px; }
+  .topbar-right { flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+  .topbar-right #user-label { max-width: 125px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; }
+  .avatar { flex: 0 0 30px; width: 30px; height: 30px; }
+  .breadcrumb { font-size: 12px; white-space: nowrap; }
+  .page-heading { align-items: flex-start; flex-wrap: wrap; padding: 24px 0 18px; }
+  h1 { font-size: clamp(30px, 8vw, 36px); }
+  .intro { max-width: none; font-size: 14px; line-height: 1.5; }
+  .page-heading .button { min-height: 44px; padding: 0 13px; font-size: 13px; }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .stat-card:last-child { grid-column: 1 / -1; }
+  .stat-card { min-width: 0; min-height: 118px; padding: 15px 12px; }
   .stat-icon { width: 24px; height: 24px; }
-  .stat-caption { font-size: 10px; letter-spacing: .35px; }
+  .stat-caption { font-size: 9px; letter-spacing: .25px; }
   .stat-value { font-size: 26px; }
   .stat-description { font-size: 12px; line-height: 1.4; }
-  .content-card { padding: 19px 15px; }
-  .section-heading { align-items: flex-start; }
-  .search-box { width: 175px; }
-  th, td { padding-right: 9px; padding-left: 9px; }
+  .content-card { min-width: 0; padding: 18px 13px; }
+  .section-heading { align-items: stretch; flex-wrap: wrap; }
+  .history-actions { width: 100%; }
+  .history-actions .button { flex: 1; min-height: 42px; padding: 0 9px; font-size: 12px; }
+  .search-box { width: 100%; }
+  th, td { padding: 12px 9px; }
+  .lower-grid { grid-template-columns: minmax(0, 1fr); }
+  .form-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .dialog-actions { flex-wrap: wrap; }
+  .dialog-actions .button { flex: 1; }
+  .report-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 390px) {
+@media (max-width: 420px) {
+  .sidebar { padding-right: 12px; padding-left: 12px; }
+  .nav-item { gap: 5px; padding-right: 5px; padding-left: 5px; font-size: 11px; }
+  .nav-item > .icon { flex-basis: 14px; width: 14px; height: 14px; }
+  .main-content { padding-right: 12px; padding-left: 12px; }
+  .topbar-right #user-label { max-width: 90px; }
+  #logout-button { font-size: 11px; }
+  .page-heading { gap: 12px; }
+  .page-heading .button { width: 100%; }
   .stats-grid { grid-template-columns: 1fr; }
-  .stat-card { min-height: 96px; }
+  .stat-card:last-child { grid-column: auto; }
+  .stat-card { min-height: 96px; padding: 13px; }
   .stat-top { justify-content: flex-start; gap: 9px; }
   .stat-value { display: inline-block; margin: 8px 6px 0 0; }
   .stat-description { display: inline; }
   .section-heading { flex-direction: column; }
-  .search-box { width: 100%; }
+  .history-actions { flex-direction: column; }
+  .history-actions .button { width: 100%; }
+  .report-grid { grid-template-columns: 1fr; }
+  .product-dialog { max-height: calc(100dvh - 24px); overflow-y: auto; padding: 18px; }
+  .login-card { padding: 25px 20px; }
+}
+@media (max-width: 340px) {
+  .nav-item { gap: 4px; font-size: 10px; }
+  .breadcrumb { font-size: 11px; }
+  .topbar-right { gap: 4px; }
+  .topbar-right #user-label { max-width: 74px; }
+  .text-button { padding-right: 0; padding-left: 3px; }
+  .report-stat { padding: 12px; }
+  .report-stat strong { font-size: 24px; }
 }
